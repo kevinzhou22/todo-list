@@ -25,7 +25,7 @@ header {
 }
 .main-content {
     display: grid;
-    grid-template-columns: 25% 1fr 20%; 
+    grid-template-columns: 20% 1fr 20%; 
     grid-template-rows: 1fr;
     height: calc(100vh - 7rem);
     justify-items: stretch;
@@ -61,7 +61,7 @@ header h1 {
 /* Projects Pane Formatting */
 
 .projects-pane {
-    padding: 2rem 2rem;
+    padding: 2rem 1.5rem;
 }
 
 .projects-pane h1 {
@@ -69,6 +69,54 @@ header h1 {
     font-size: 2.5rem;
     font-weight: bold;
 }
+.projects-pane .projects-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.projects-pane .project {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    border-radius: 2px;
+    padding: 0.6rem 0.6rem;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: rgb(180,180,180);
+}
+
+.projects-pane .project:hover {
+    cursor: pointer;
+    background-color: rgb(85,85,85);
+}
+
+.projects-pane .project.selected-project {
+    background-color: rgb(85,85,85);
+    color: var(--white);
+}
+
+.projects-pane .add-project-button {
+    background-color: var(--granite-gray);
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    border-radius: 2px;
+    padding: 0.5rem 0.5rem;
+    text-align: right;
+    float:right;
+}
+
+.projects-pane .add-project-button:hover {
+    background-color: rgb(85,85,85);
+    cursor: pointer;
+}
+
+.projects-pane .add-project-button .plus-icon{
+   color: var(--bonfire-orange);
+   font-weight: bold;
+   font-size: 1.4rem;
+}
+
 
 /* Tasks Pane Formatting */
 
