@@ -12,24 +12,76 @@
     --web-gray-1: rgb(247,247,247);
     --web-gray-2: rgb(226,226,226);
     --granite-gray: rgb(66,65,65);
+    --bonfire-orange: #ffa00f;
 }
 
-/* Pane Layout */
+/* Pane Layout and Overall Formatting */
 
-.content {
+header {
+    height: 7rem;
+    background-color: var(--primary-green);
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.main-content {
     display: grid;
-    grid-template-columns: 30% 1fr 20%; 
+    grid-template-columns: 25% 1fr 20%; 
     grid-template-rows: 1fr;
-    height: 100vh;
+    height: calc(100vh - 7rem);
     justify-items: stretch;
     align-items: stretch;
+    font-family: sans-serif;
 }
 
 .projects-pane {
+    background-color: var(--granite-gray);
 }
 
 .tasks-pane {
+    background-color: var(--white);
 }
 
 .details-pane {
+    background-color: var(--web-gray-2);
+}
+/* Header Formatting */
+
+header {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+/* Projects Pane Formatting */
+
+.projects-pane {
+    padding: 2rem 2rem;
+}
+
+.projects-pane h1 {
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Tasks Pane Formatting */
+
+.tasks-pane {
+    padding: 2rem 2rem;
+}
+.tasks-pane .tasks-pane-header {
+    color: var(--black);
+    font-size: 1.3rem;
+}
+
+/* Details Pane Formatting */
+
+.details-pane {
+    padding: 2rem 2rem;
 }
