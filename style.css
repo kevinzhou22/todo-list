@@ -1,0 +1,35 @@
+.html {
+    font-size: 62.5%;
+}
+
+:root {
+    --primary-green: rgb(0,105,62);
+    
+    /* secondary colors */
+    --forest-green: rgb(18,49,43);
+    --white: rgb(255,255,255);
+    --black: rgb(0,0,0);
+    --web-gray-1: rgb(247,247,247);
+    --web-gray-2: rgb(226,226,226);
+    --granite-gray: rgb(66,65,65);
+}
+
+/* Pane Layout */
+
+.content {
+    display: grid;
+    grid-template-columns: 30% 1fr 20%; 
+    grid-template-rows: 1fr;
+    height: 100vh;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.projects-pane {
+}
+
+.tasks-pane {
+}
+
+.details-pane {
+}
