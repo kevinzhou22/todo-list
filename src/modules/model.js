@@ -1,3 +1,16 @@
+import * as events from "./events.js"
+
+const eventsEmitted = {
+    ITEM_ADDED: "itemAdded",
+    ITEM_REMOVED: "itemRemoved",
+    ITEM_UPDATED: "itemUpdated",
+    PROJECT_ADDED: "projectAdded",
+    PROJECT_REMOVED: "projectRemoved",
+    PROJECT_TITLE_CHANGED: "projectTitleChanged",
+};
+
+
+
 /* Creates objects that generate unique IDs. Takes one argument representing 
 the highest existing ID in order to generate IDs that are greater
 than latestID. If not specified, defaults to 0. */
@@ -99,26 +112,47 @@ const projectFactory = function(title, todoItems = []) {
 
     /* Generates new todo item  and places it in currentToDoItems */
     const addTodo = function(title, options = {}) {
-        const newToDo = todoItemFactory(title, options);
-        currentTodoItems.push(newToDo);
+        const newTodo = todoItemFactory(title, options);
+        currentTodoItems.push(newTodo);
+
+        const eventData = {
+            projectID,
+            todoProperties: newTodo.getProperties(),
+        };
+
+        events.emit(eventsEmitted.ITEM_ADDED, eventData);
     };
 
     /* Removes todo item from currentToDoItems */
     const removeTodo = function(ID) { 
+        let removedTodoItemID = null;
         for(let i = 0; i < currentTodoItems.length; i ++) {
             if(currentTodoItems[i].getID() === ID) {
+                removedTodoItemID = currentTodoItems[i].getID();
                 currentTodoItems.splice(i,1);
                 break;
             }
+        }
+        if(removedTodoItemID !== null) {
+            events.emit(eventsEmitted.REMOVED_ITEM, removedTodoItemID);
         }
     };
 
     /* Updates todo item within currentToDoItems */
     const updateTodo = function(ID, options = {}) {
+        let currentProperties = null;
         for(let i = 0; i < currentTodoItems.length; i ++) {
             if(currentTodoItems[i].getID() === ID) {
                 currentTodoItems[i].updateProperties(options);
+                currentProperties = currentTodoItems.getProperties();
             }
+        }
+        if (currentProperties !== null) {
+            const eventData = {
+                projectID,
+                currentProperties,
+            };
+            events.emit(eventsEmitted.ITEM_UPDATED, eventData);
         }
     };
 
@@ -163,12 +197,19 @@ const projectsList = (function() {
     const addProject = function(title, todoItems = []) {
         const newProject = projectFactory(title, todoItems);
         currentProjects.push(newProject);
+
+        const eventData = {
+            projectID: newProject.getID(),
+            title: newProject.getTitle(),
+        }
+        events.emit(eventsEmitted.PROJECT_ADDED, eventData );
     };
 
     const removeProject = function(projectID) {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
             currentProjects.splice(index, 1);
+            events.emit(eventsEmitted.PROJECT_REMOVED, projectID);
         }
     };
 
@@ -176,6 +217,11 @@ const projectsList = (function() {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
             currentProjects[index].setTitle(newTitle);
+            const eventData = {
+                projectID,
+                newTitle,
+            }
+            events.emit(eventsEmitted.PROJECT_REMOVED, eventData);
         }
     };
 
