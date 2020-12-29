@@ -31,9 +31,8 @@ todoItem.
 current optional properties: description, important, dueDate (a Date object), notes */
 const todoItemFactory = function(title, options = {}) {
     
-    const todoItemID = todoItemIDGenerator.generate();
-
     const todoItemProperties = {
+        id: todoItemIDGenerator.generate(),   
         title,
         description: "description" in options ? options.description : "",
         important: "important" in options ? options.important : false,
@@ -71,7 +70,7 @@ const todoItemFactory = function(title, options = {}) {
     };
     
     const getID = function() {
-        return todoItemID;
+        return todoItemProperties.id;
     };
 
     return {
