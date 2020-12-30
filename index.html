@@ -62,7 +62,38 @@
                 <button type="button" class="delete-button"><img src="images/trash.png" alt="options"></button>
             </div>
         </div>
+        <div class="bg-modal">
+            <div class="modal-content">
+                <div class="close">+</div>
+                <form action="">
+                    <h2>New Book</h2>
+                    <div class="input-wrapper title">
+                        <label for="title-field">Title:</label>
+                        <input type="text" id="title-field" name="title">
+                    </div>
+                    <div class="input-wrapper due-date">
+                        <label for="due-date-field">Due Date:</label>
+                        <input type="date" id="due-date-field" name="due-date">
+                    </div>
+                    <div class="input-wrapper important">
+                        <label for="important-field">Important:</label>
+                        <select type="text" id="important-field" name="important">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+                    <div class="input-wrapper description">
+                        <label for="description-field">Important:</label>
+                        <textarea id="description-field" name="description"></textarea>
+                    </div>
 
+                    <div class="modal-buttons">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     </div>
