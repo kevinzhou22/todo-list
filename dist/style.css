@@ -342,3 +342,107 @@ header h1 {
     width: 100%;
     object-fit: cover;
 }
+
+/* Edit Task Information Modeal */
+
+.bg-modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    display: flex;
+    visibility: hidden;
+}
+.modal-content {
+    width: 20rem;
+    background-color: white;
+    border-radius: 0.2rem;
+    position: relative;
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+}
+.modal-content h2 {
+    font-size: 1.2rem;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.bg-modal form > div.input-wrapper {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+}
+
+.input-wrapper label {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.input-wrapper > input, .input-wrapper > select {
+    width: 100%;
+    height: 1.9em;
+    box-sizing: border-box;
+    border: none;
+    background-color: rgb(235,235,235);
+    border-radius: 1px;
+    padding-left: 0.3rem;
+    margin: 0;
+}
+
+.input-wrapper > textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 4.7rem;
+    border: none;
+    background-color: rgb(235,235,235);
+    padding-left: 0.3rem;
+    border-radius: 1px;
+    margin: 0;
+    resize: vertical;
+    overflow: auto;
+
+}
+
+.modal-buttons {
+    margin-top: 1.3rem;
+    text-align: right;
+}
+
+.modal-buttons button {
+    display: inline-block;
+    margin-left: 0.4rem;
+    display: inline-block;
+    font-size: 0.8rem;
+    border: none;
+    padding: 0.5rem 1.0rem;
+    font-weight: bold;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+.submit {
+    background-color: var(--primary-green);
+    color: white;
+}
+.cancel {
+    background-color: #EEE;
+    color: black;
+}
+
+.close {
+    position: absolute;
+    top: 0.3rem;
+    right: 1.4rem;
+    font-size: 2.5rem;
+    transform: rotate(45deg);
+    user-select: none;
+    -webkit-user-select: none;
+    color: darkgray;
+}
+
+.close:hover {
+    filter: brightness(110%);
+}
