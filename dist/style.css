@@ -64,11 +64,6 @@ header h1 {
     padding: 2rem 1.5rem;
 }
 
-.projects-pane h1 {
-    color: var(--white);
-    font-size: 2.5rem;
-    font-weight: bold;
-}
 .projects-pane .projects-container {
     width: 100%;
     margin: 0 auto;
