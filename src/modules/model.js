@@ -2,7 +2,7 @@ import * as events from "./events.js"
 
 const eventsEmitted = {
     ITEM_ADDED: "itemAdded",
-    ITEM_REMOVED: "itemRemoved",
+    ITEM_REMOVED: "itemRemoved",    
     ITEM_UPDATED: "itemUpdated",
     PROJECT_ADDED: "projectAdded",
     PROJECT_REMOVED: "projectRemoved",
@@ -41,7 +41,7 @@ const todoItemIDGenerator = IDGeneratorFactory(0);
 is meant to be an object containing optional arguments for further configuring the
 todoItem. 
 
-current optional properties: description, important, dueDate (a Date object), notes */
+current optional properties: description, important, dueDate (a Date object) */
 const todoItemFactory = function(title, options = {}) {
     
     const todoItemProperties = {
@@ -50,7 +50,6 @@ const todoItemFactory = function(title, options = {}) {
         description: "description" in options ? options.description : "",
         important: "important" in options ? options.important : false,
         dueDate: "dueDate" in options ? new Date(options.date.valueOf()) : null, // need to copy value of date
-        notes: "notes" in options ? options.notes : "",
     };
 
     // take a String argument and tests if that property exists on the to-do item
@@ -68,7 +67,6 @@ const todoItemFactory = function(title, options = {}) {
             description,
             important,
             dueDate,
-            notes,
         } = todoItemProperties)
     };
     
