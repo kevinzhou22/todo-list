@@ -74,42 +74,58 @@ header h1 {
     width: 100%;
     border-radius: 2px;
     padding: 0.6rem 0.6rem;
+    height: 2.5rem;
     box-sizing: border-box;
     font-weight: 500;
     font-size: 1.3rem;
     color: rgb(180,180,180);
 }
 
-.projects-pane .project:hover {
+.projects-pane .project:hover, .project-adder:hover, .project-adder:hover input[type="text"] {
     cursor: pointer;
     background-color: rgb(85,85,85);
 }
+
+
 
 .projects-pane .project.selected-project {
     background-color: rgb(85,85,85);
     color: var(--white);
 }
+.projects-pane .project-adder {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    height: 2.5rem
+}
 
-.projects-pane .add-project-button {
-    background-color: var(--granite-gray);
+.projects-pane .project-adder .add-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem 0.1rem 0;
+    width: 2.5rem;
+    box-sizing: border-box;
+    height: 100%;
+    color: rgb(130,130,130);
+    font-size: 1.8rem;
+    color: var(--bonfire-orange);
+    font-weight: 500;
+}
+.projects-pane .project-adder .new-project-textbox {
+    margin-left: 0.3rem;
+    flex-grow: 1;
+    font-size: 1.1rem;
     border: none;
+    height: 100%;
+    background-color: var(--granite-gray);
     color: white;
-    font-size: 1.3rem;
-    border-radius: 2px;
-    padding: 0.5rem 0.5rem;
-    text-align: right;
-    float:right;
+    box-sizing: border-box;
 }
 
-.projects-pane .add-project-button:hover {
-    background-color: rgb(85,85,85);
-    cursor: pointer;
-}
-
-.projects-pane .add-project-button .plus-icon{
-   color: var(--bonfire-orange);
-   font-weight: bold;
-   font-size: 1.4rem;
+.projects-pane .project-adder .new-project-textbox::placeholder {
+    color: var(--web-gray-2);
+    opacity: 1;
 }
 
 
