@@ -1,51 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>To Do List</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header>
-    <h1>To Do</h1>
-</header>
-<div class="main-content">
-    <div class="projects-pane">
-        <div class="projects-container">
-            <div class="project selected-project">Project 1</div>
-            <div class="project">Project 2</div>
-            <button class="add-project-button"><span class="plus-icon">+</span> Add Project</button>
-        </div>
-    </div>
-   <div class="tasks-pane">
-       <h2 class="tasks-pane-header">Tasks</h2>
-       <div class="task-adder">
-           <div class="add-icon">+</div>
-           <input class="new-task-textbox" type="text" placeholder="Add a task">
-       </div>
-       <div class="tasks-container">
-           <div class="task">
-               <div class="task-checkbox-container">
-                   <input class="task-completed-checkbox" type="checkbox">
-               </div>
-               <div class="task-content">
-                <div class="task-summary">
-                    <p class="task-title">Title</p>
-                    <p class="due-date">Due January 1, 2021</p>
-                </div>
-                <div class="important-rating">
-                    <input class="task-important" type="checkbox">
-                </div>
-               </div>
-           </div>
-           <div class="task"></div>
-       </div>
-   </div>
-   <div class="details-pane"></div>
-</div>
 
-</div>
-<script src="main.js"></script>
+<body>
+    <header>
+        <h1>To Do</h1>
+    </header>
+    <div class="main-content">
+        <div class="projects-pane">
+            <div class="projects-container">
+                <div class="project selected-project">Project 1</div>
+                <div class="project">Project 2</div>
+                <button class="add-project-button"><span class="plus-icon">+</span> Add Project</button>
+            </div>
+        </div>
+        <div class="tasks-pane">
+            <h2 class="tasks-pane-header">Tasks</h2>
+            <div class="task-adder">
+                <div class="add-icon">+</div>
+                <input class="new-task-textbox" type="text" placeholder="Add a task">
+            </div>
+            <div class="tasks-container">
+                <div class="task">
+                    <div class="task-checkbox-container">
+                        <input class="task-completed-checkbox" type="checkbox">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-summary">
+                            <p class="task-title">Title</p>
+                            <p class="due-date">Due January 1, 2021</p>
+                        </div>
+                        <div class="important-rating">
+                            <input class="task-important" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+                <div class="task"></div>
+            </div>
+        </div>
+        <div class="details-pane">
+            <div class="details-section">
+                <p class="details-pane-title">Task 1</p>
+                <div class="detail-container detail-important">
+                    <div class="detail-icon"><img src="images/star.png" alt=""></div>
+                    <p class="detail">Important</p>
+                </div>
+                <div class="detail-container detail-due-date">
+                    <div class="detail-icon"><img src="images/calendar.png" alt=""></div>
+                    <p class="detail">Januray 1, 2021</p>
+                </div>
+                <p class="detail-description"></p>
+            </div>
+            <div class="details-options">
+                <button type="button" class="options-button"><img src="images/settings.png" alt="options"></button>
+                <button type="button" class="delete-button"><img src="images/trash.png" alt="options"></button>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+    <script src="main.js"></script>
 </body>
+
 </html>
