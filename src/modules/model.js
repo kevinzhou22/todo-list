@@ -125,7 +125,7 @@ const projectFactory = function(title, todoItems = []) {
     /* Removes todo item from currentToDoItems */
     const removeTodo = function(ID) { 
         let removedTodoItemID = null;
-        for(let i = 0; i < _currentTodoItems.length; i ++) {
+        for(let i = 0; i < _currentTodoItems.length; i++) {
             if(_currentTodoItems[i].getID() === ID) {
                 removedTodoItemID = _currentTodoItems[i].getID();
                 _currentTodoItems.splice(i,1);
@@ -140,7 +140,7 @@ const projectFactory = function(title, todoItems = []) {
     /* Updates todo item within currentToDoItems */
     const updateTodo = function(ID, options = {}) {
         let currentProperties = null;
-        for(let i = 0; i < _currentTodoItems.length; i ++) {
+        for(let i = 0; i < _currentTodoItems.length; i++) {
             if(_currentTodoItems[i].getID() === ID) {
                 _currentTodoItems[i].updateProperties(options);
                 currentProperties = _currentTodoItems.getProperties();
@@ -160,13 +160,27 @@ const projectFactory = function(title, todoItems = []) {
     }
 
     const doesIDExist = function(ID) {
-        for(let i = 0; i < _currentTodoItems.length; i ++) {
+        for(let i = 0; i < _currentTodoItems.length; i++) {
             if(_currentTodoItems[i].getID() === ID) {
                 return true;    
             }
         }
         return false;
     };
+
+    const getTodoItemProperties = function(ID) {
+        let properties = null;
+        for(let i = 0; i < _currentTodoItems.length; i++) {
+            if(_currentTodoItems[i].getID() === ID) {
+                properties = _currentTodoItems[i].getProperties();
+                break;
+            }
+            if (properties !== null) {
+                return properties;
+            }
+        }
+    };
+
     return {
         getTitle,
         setTitle,
@@ -175,6 +189,7 @@ const projectFactory = function(title, todoItems = []) {
         updateTodo,
         getID,
         doesIDExist,
+        getTodoItemProperties
     }
 
 };
@@ -245,6 +260,15 @@ const projectsList = (function() {
         }
     };
 
+    const getTodoItemProperties = function(projectID, todoItemID) {
+        const projectIndex = _getProjectIndexWithID(projectID);
+        let properties = null;
+        if (projectIndex !== null) {
+            properties = _currentProjects[projectIndex].getProperties(todoItemID);
+        }
+        if (properties !== null) return properties;
+    };
+
     return {
         addProject,
         removeProject,
@@ -252,11 +276,13 @@ const projectsList = (function() {
         addTodoItem,
         removeTodoItem,
         updateTodoItem,
+        getTodoItemProperties,
     }
 })();
 
 export let addProject = projectsList.addProject, removeProject = projectsList.removeProject,
         changeProjectTitle = projectsList.changeProjectTitle, addTodoItem = projectsList.addTodoItem,
-        removeTodoItem = projectsList.removeTodoItem, updateTodoItem = projectsList.updateTodoItem;
+        removeTodoItem = projectsList.removeTodoItem, updateTodoItem = projectsList.updateTodoItem,
+        getTodoItemProperties = projectsList.getTodoItemProperties;
 
 export {eventsEmitted};
