@@ -329,6 +329,8 @@ header h1 {
 }
 
 .details-pane .detail-description {
+    font-size: 0.8rem;
+    padding: 1rem;
     border-radius: 1px;
     background-color: var(--white);
     min-height: 4rem;
