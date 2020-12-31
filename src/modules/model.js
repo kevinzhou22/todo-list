@@ -49,6 +49,7 @@ const todoItemFactory = function(title, options = {}) {
         title,
         description: "description" in options ? options.description : "",
         important: "important" in options ? options.important : false,
+        completed: "completed" in options ? options.completed : false,
         dueDate: "dueDate" in options ? new Date(options.date.valueOf()) : null, // need to copy value of date
     };
 
@@ -66,6 +67,7 @@ const todoItemFactory = function(title, options = {}) {
             title,
             description,
             important,
+            completed,
             dueDate,
         } = _todoItemProperties)
     };
