@@ -10,7 +10,6 @@ const eventsEmitted = {
 };
 
 
-
 /* Creates objects that generate unique IDs. Takes one argument representing 
 the highest existing ID in order to generate IDs that are greater
 than latestID. If not specified, defaults to 0. */
@@ -259,3 +258,5 @@ const projectsList = (function() {
 export let addProject = projectsList.addProject, removeProject = projectsList.removeProject,
         changeProjectTitle = projectsList.changeProjectTitle, addTodoItem = projectsList.addTodoItem,
         removeTodoItem = projectsList.removeTodoItem, updateTodoItem = projectsList.updateTodoItem;
+
+export {eventsEmitted};

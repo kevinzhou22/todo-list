@@ -328,4 +328,4 @@ const modalWindowHandler = (function() {
 })();
 
 
-export { projectsPaneHandler, tasksPaneHandler, detailsPaneHandler, modalWindowHandler };
+export { projectsPaneHandler, tasksPaneHandler, detailsPaneHandler, modalWindowHandler, eventsEmitted };
