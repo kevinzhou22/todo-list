@@ -1,7 +1,10 @@
 html {
     font-size:  16px;
 }
+.using-mouse :focus {
+    outline: none;
 
+}
 :root {
     --primary-green: rgb(0,105,62);
     
@@ -96,7 +99,8 @@ header h1 {
     display: flex;
     box-sizing: border-box;
     align-items: center;
-    height: 2.5rem
+    height: 2.5rem;
+    border-radius: 2px;
 }
 
 .projects-pane .project-adder .add-icon{
