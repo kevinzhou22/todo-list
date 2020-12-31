@@ -15,17 +15,17 @@ const eventsEmitted = {
 the highest existing ID in order to generate IDs that are greater
 than latestID. If not specified, defaults to 0. */
 const IDGeneratorFactory = function(latestID = 0) {
-    let currentHighestID = latestID;
+    let _currentHighestID = latestID;
 
     // generates a new unique ID
     const generate = function() {
-        currentHighestID++;
-        return currentHighestID;
+        _currentHighestID++;
+        return _currentHighestID;
     };
 
     // returns the current highest generated ID
     const getHighestID = function() {
-        return currentHighestID;
+        return _currentHighestID;
     }
 
     return {
@@ -44,7 +44,7 @@ todoItem.
 current optional properties: description, important, dueDate (a Date object) */
 const todoItemFactory = function(title, options = {}) {
     
-    const todoItemProperties = {
+    const _todoItemProperties = {
         id: todoItemIDGenerator.generate(),   
         title,
         description: "description" in options ? options.description : "",
@@ -54,7 +54,7 @@ const todoItemFactory = function(title, options = {}) {
 
     // take a String argument and tests if that property exists on the to-do item
     const _isPropertyInExistence = function(property) {
-        if (property in todoItemProperties) {
+        if (property in _todoItemProperties) {
             return true;
         } else {
             return false;
@@ -67,7 +67,7 @@ const todoItemFactory = function(title, options = {}) {
             description,
             important,
             dueDate,
-        } = todoItemProperties)
+        } = _todoItemProperties)
     };
     
     /* sets the properties specified in the propertiesToUpdate argument,
@@ -75,13 +75,13 @@ const todoItemFactory = function(title, options = {}) {
     const updateProperties = function(propertiesToUpdate = {}) {
         for (let key in propertiesToUpdate) {
             if(!_isPropertyInExistence(key)) continue;
-            todoItemProperties[key] = propertiesToUpdate[key];
+            _todoItemProperties[key] = propertiesToUpdate[key];
             
         }
     };
     
     const getID = function() {
-        return todoItemProperties.id;
+        return _todoItemProperties.id;
     };
 
     return {
@@ -96,9 +96,9 @@ const projectIDGenerator = IDGeneratorFactory(0);
 /* Creates objects representing projects used to classify todo items */
 const projectFactory = function(title, todoItems = []) {
 
-    const projectID = projectIDGenerator.generate();
+    const _projectID = projectIDGenerator.generate();
 
-    const currentTodoItems = [...todoItems];
+    const _currentTodoItems = [...todoItems];
 
     const getTitle = function() {
         return title;
@@ -111,10 +111,10 @@ const projectFactory = function(title, todoItems = []) {
     /* Generates new todo item  and places it in currentToDoItems */
     const addTodo = function(title, options = {}) {
         const newTodo = todoItemFactory(title, options);
-        currentTodoItems.push(newTodo);
+        _currentTodoItems.push(newTodo);
 
         const eventData = {
-            projectID,
+            projectID: _projectID,
             todoProperties: newTodo.getProperties(),
         };
 
@@ -124,10 +124,10 @@ const projectFactory = function(title, todoItems = []) {
     /* Removes todo item from currentToDoItems */
     const removeTodo = function(ID) { 
         let removedTodoItemID = null;
-        for(let i = 0; i < currentTodoItems.length; i ++) {
-            if(currentTodoItems[i].getID() === ID) {
-                removedTodoItemID = currentTodoItems[i].getID();
-                currentTodoItems.splice(i,1);
+        for(let i = 0; i < _currentTodoItems.length; i ++) {
+            if(_currentTodoItems[i].getID() === ID) {
+                removedTodoItemID = _currentTodoItems[i].getID();
+                _currentTodoItems.splice(i,1);
                 break;
             }
         }
@@ -139,15 +139,15 @@ const projectFactory = function(title, todoItems = []) {
     /* Updates todo item within currentToDoItems */
     const updateTodo = function(ID, options = {}) {
         let currentProperties = null;
-        for(let i = 0; i < currentTodoItems.length; i ++) {
-            if(currentTodoItems[i].getID() === ID) {
-                currentTodoItems[i].updateProperties(options);
-                currentProperties = currentTodoItems.getProperties();
+        for(let i = 0; i < _currentTodoItems.length; i ++) {
+            if(_currentTodoItems[i].getID() === ID) {
+                _currentTodoItems[i].updateProperties(options);
+                currentProperties = _currentTodoItems.getProperties();
             }
         }
         if (currentProperties !== null) {
             const eventData = {
-                projectID,
+                projectID: _projectID,
                 currentProperties,
             };
             events.emit(eventsEmitted.ITEM_UPDATED, eventData);
@@ -155,12 +155,12 @@ const projectFactory = function(title, todoItems = []) {
     };
 
     const getID = function() {
-        return projectID;
+        return _projectID;
     }
 
     const doesIDExist = function(ID) {
-        for(let i = 0; i < currentTodoItems.length; i ++) {
-            if(currentTodoItems[i].getID() === ID) {
+        for(let i = 0; i < _currentTodoItems.length; i ++) {
+            if(_currentTodoItems[i].getID() === ID) {
                 return true;    
             }
         }
@@ -181,11 +181,11 @@ const projectFactory = function(title, todoItems = []) {
 /* Module that holds other projects */
 const projectsList = (function() {
 
-    const currentProjects = [];
+    const _currentProjects = [];
 
     const _getProjectIndexWithID = function(projectID) {
-        for(let i = 0; i < currentProjects.length; i++) {
-            if(currentProjects[i].getID() === projectID) {
+        for(let i = 0; i < _currentProjects.length; i++) {
+            if(_currentProjects[i].getID() === projectID) {
                 return i;
             }
         }
@@ -194,7 +194,7 @@ const projectsList = (function() {
 
     const addProject = function(title, todoItems = []) {
         const newProject = projectFactory(title, todoItems);
-        currentProjects.push(newProject);
+        _currentProjects.push(newProject);
 
         const eventData = {
             projectID: newProject.getID(),
@@ -206,7 +206,7 @@ const projectsList = (function() {
     const removeProject = function(projectID) {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
-            currentProjects.splice(index, 1);
+            _currentProjects.splice(index, 1);
             events.emit(eventsEmitted.PROJECT_REMOVED, projectID);
         }
     };
@@ -214,7 +214,7 @@ const projectsList = (function() {
     const changeProjectTitle = function(projectID, newTitle) {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
-            currentProjects[index].setTitle(newTitle);
+            _currentProjects[index].setTitle(newTitle);
             const eventData = {
                 projectID,
                 newTitle,
@@ -226,21 +226,21 @@ const projectsList = (function() {
     const addTodoItem = function(projectID, title, options = {}) {
         const projectIndex = _getProjectIndexWithID(projectID);
         if (projectIndex !== null) {
-            currentProjects[projectIndex].addTodo(title, options);
+            _currentProjects[projectIndex].addTodo(title, options);
         }
     };
 
     const removeTodoItem = function(projectID, todoItemID) {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
-            currentProjects[index].removeTodo(todoItemID);
+            _currentProjects[index].removeTodo(todoItemID);
         }
     };
 
     const updateTodoItem = function(projectID, todoItemID, options = {}) {
         const index = _getProjectIndexWithID(projectID);
         if (index !== null) {
-            currentProjects[index].updateTodo(todoItemID, options);
+            _currentProjects[index].updateTodo(todoItemID, options);
         }
     };
 
