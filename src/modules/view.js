@@ -73,9 +73,14 @@ const projectsPaneHandler = (function () {
         newActiveProject.classList.add("selected-project");
     }
 
+    const getDisplayedProject = function() {
+        return _projectsContainer.querySelector(".selected-project").getAttribute("data-project-id");
+    };
+
     return {
         addProject,
         switchActiveProject,
+        getDisplayedProject,
     }
 })();
 
