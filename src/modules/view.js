@@ -26,7 +26,7 @@ document.body.addEventListener("keydown", (e) => {
 const projectsPaneHandler = (function () {
     const _projectsPane = document.querySelector(".projects-pane");
     const _projectsContainer = _projectsPane.querySelector(".projects-container");
-
+    
     // callback function for handling users pressing enter while using the project adder
     const _onEnterOfProjectAdder = function (e) {
         if (e.key === "Enter") {
@@ -96,7 +96,11 @@ const tasksPaneHandler = (function () {
             const title = e.target.getAttribute("value");
             e.target.value = "";
             e.target.blur();
-            events.emit(eventsEmitted.USER_ADDS_TASK, { title });
+            const eventData = {
+                title,
+                projectID: projectsPaneHandler.getDisplayedProject(),
+            }
+            events.emit(eventsEmitted.USER_ADDS_TASK, eventData);
         }
     };
 
@@ -106,7 +110,11 @@ const tasksPaneHandler = (function () {
         if(targetTag === "input") {
             return;
         }
-        events.emit(eventsEmitted.USER_REQUESTS_TASK_DETAILS, e.currentTarget.getAttribute("data-task-id"));
+        eventData = {
+            taskID: e.currentTarget.getAttribute("data-task-id"),
+            projectID: projectsPaneHandler.getDisplayedProject(),
+        };
+        events.emit(eventsEmitted.USER_REQUESTS_TASK_DETAILS, eventData);
         console.log("works");
     };
 
@@ -117,13 +125,23 @@ const tasksPaneHandler = (function () {
     // callback function for handling users clicking the important checkbox on tasks
     const _onClickOfImportantCheckbox = function (e) {
         const newValue = e.target.checked;
-        events.emit(eventsEmitted.USER_UPDATES_TASK, { important: newValue });
+        const eventData = {
+            taskID: e.target.closest("task").getAttribute("data-task-id"),
+            important: newValue,
+            projectID: projectsPaneHandler.getDisplayedProject(),
+        };
+        events.emit(eventsEmitted.USER_UPDATES_TASK, { eventData});
     };
 
     // callback function for handling users clicking the complete checkbox on tasks
     const _onClickOfCompletedCheckbox = function (e) {
         const newValue = e.target.checked;
-        events.emit(eventsEmitted.USER_UPDATES_TASK, { completed: newValue });
+        const eventData = {
+            taskID: e.target.closest("task").getAttribute("data-task-id"),
+            completed: newValue,
+            projectID: projectsPaneHandler.getDisplayedProject(),
+        };
+        events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
     };
 
     // adds event listeners to the provided task div
@@ -239,7 +257,11 @@ const detailsPaneHandler = (function() {
         const currentTask = _detailsPane.getAttribute("data-task-id");
         _detailsPane.removeAttribute("data-task-id");
         disappear();
-        events.emit(eventsEmitted.USER_REMOVES_TASK, {id:currentTask});
+        eventData = {
+            taskID: currentTask,
+            projectID: projectsPaneHandler.getDisplayedProject(),
+        }
+        events.emit(eventsEmitted.USER_REMOVES_TASK, eventData);
     }
 
     // add event handlers
