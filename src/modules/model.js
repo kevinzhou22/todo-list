@@ -116,8 +116,6 @@ const projectFactory = function(title, todoItems = []) {
             projectID: _projectID,
             todoItemProperties: newTodo.getProperties(),
         };
-        console.log("emttign event");
-        console.log(eventData);
         events.emit(eventsEmitted.ITEM_ADDED, eventData);
     };
 
@@ -174,9 +172,9 @@ const projectFactory = function(title, todoItems = []) {
                 properties = _currentTodoItems[i].getProperties();
                 break;
             }
-            if (properties !== null) {
-                return properties;
-            }
+        }
+        if (properties !== null) {
+            return properties;
         }
     };
 
@@ -239,11 +237,9 @@ const projectsList = (function() {
     };
 
     const addTodoItem = function(projectID, title, options = {}) {
-        console.log("title: " +title);
-        console.log("Project ID: " + projectID);
+
         const projectIndex = _getProjectIndexWithID(projectID);
         if (projectIndex !== null) {
-            console.log("PROJECT INDEX: " + projectIndex);
             _currentProjects[projectIndex].addTodo(title, options);
         }
     };
