@@ -44,7 +44,6 @@ const _onItemUpdatedFromModel = function(eventData) {
     view.tasksPaneHandler.updateTaskDetails(taskID,title,dueDateString,completed,important)
 
     if(+view.detailsPaneHandler.getAssociatedTask().taskID === +taskID) {
-        console.log(eventData);
         const description = eventData.currentProperties.description;
         const detailsDueDateString = dueDateString === null ? "No Due Date" : dueDateString.slice(5);
         const importantString = important ? "Important" : "Not Important";
@@ -114,7 +113,6 @@ const _onUserUpdatesTasksFromView = function(eventData) {
 const _onUserRequestsToEditTask = function(eventData) {
     const taskID = eventData.taskID;
     const projectID = eventData.projectID;
-    console.log(taskID, projectID);
     const properties = model.getTodoItemProperties(projectID, taskID);
 
     const title = properties.title;
@@ -154,7 +152,7 @@ const _onUserChangesProjectDisplayed = function(eventData) {
         const important = properties.important;
         const completed = properties.completed;
         const dueDate = properties.dueDate;
-        const dateString = dueDate === null ? null : "Due:" + _formatDate(dueDate);
+        const dateString = dueDate === null ? null : "Due: " + _formatDate(dueDate);
         view.tasksPaneHandler.addTask(id, title, dateString,important, completed);
     });
 };
