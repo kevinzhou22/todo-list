@@ -258,7 +258,7 @@ const detailsPaneHandler = (function() {
     }
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function() {
-        const currentTask = _detailsPane.getAttribute("data-task-id");
+        const currentTask = getCurrentActiveTask();
         _detailsPane.removeAttribute("data-task-id");
         disappear();
         eventData = {
@@ -290,10 +290,15 @@ const detailsPaneHandler = (function() {
         dueDateParagraph.textContent = dueDate;
         descriptionParagraph.textContent = description;
     };
+
+    const getCurrentActiveTask = function() {
+        return +_detailsPane.getAttribute("data-task-id");
+    };
     return {
         appear,
         disappear,
         setFields,
+        getCurrentActiveTask,
     };
 })();
 
