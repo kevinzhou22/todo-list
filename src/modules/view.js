@@ -254,7 +254,7 @@ const detailsPaneHandler = (function() {
     // callback function for handling clicks on the settings button,
     // making the edit panel for the pane visible
     const _onClickOfSettingsButton = function() {
-        modal.style.display = "block";
+        modalWindowHandler.appear();
     }
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function() {
@@ -336,13 +336,13 @@ const modalWindowHandler = (function() {
         };
         events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
 
-        modalWindow.style.visibility = "hidden";
+       disappear();
         _resetContent();
     };
 
     // callback function that hides the modal window upon click of the cancel or close button
     const _onClickOfCloseOrCancel = function(e) {
-        modalWindow.style.visibility = "hidden";
+        disappear();
         _resetContent();
     };
     
@@ -360,8 +360,17 @@ const modalWindowHandler = (function() {
         descriptionTextArea.textContent = description;
     };
 
+    const appear = function() {
+        modalWindow.style.visibility = "visible";
+    };
+
+    const disappear = function() {
+        modalWindow.style.visibility = "hidden";
+    };
     return {
         setFields,
+        appear,
+        disappear,
     };
 })();
 
