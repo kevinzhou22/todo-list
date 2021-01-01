@@ -288,8 +288,8 @@ const detailsPaneHandler = (function () {
 
     // gets the data-task-id and data-project-id attributes 
     const getAssociatedTask = function () {
-        const taskID = _detailsPane.getAttribute("data-task-id");
-        const projectID = _detailsPane.getAttribute("data-project-id");
+        const taskID = +_detailsPane.getAttribute("data-task-id");
+        const projectID = +_detailsPane.getAttribute("data-project-id");
 
         return {
             taskID,
