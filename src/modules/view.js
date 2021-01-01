@@ -68,7 +68,8 @@ const projectsPaneHandler = (function () {
     }
 
     const switchActiveProject = function (id) {
-        _projectsContainer.querySelector(".selected-project").classList.remove("selected-project");
+        const currentActiveProject = _projectsContainer.querySelector(".selected-project");
+        if (currentActiveProject !== null) classList.remove("selected-project");
         const newActiveProject = _projectsContainer.querySelector(`[data-project-id='${id}']`);
         newActiveProject.classList.add("selected-project");
     }
@@ -93,6 +94,7 @@ const tasksPaneHandler = (function () {
     // callback function for handling users pressing enter while using the task adder
     const _onEnterOfTaskAdder = function (e) {
         if (e.key === "Enter") {
+            console.log("enter");
             const title = e.target.getAttribute("value");
             e.target.value = "";
             e.target.blur();
