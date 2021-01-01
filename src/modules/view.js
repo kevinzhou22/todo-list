@@ -138,7 +138,7 @@ const tasksPaneHandler = (function () {
     const _onClickOfCompletedCheckbox = function (e) {
         const newValue = e.target.checked;
         const eventData = {
-            taskID: +e.target.closest("task").getAttribute("data-task-id"),
+            taskID: +e.target.closest(".task").getAttribute("data-task-id"),
             completed: newValue,
             projectID: +projectsPaneHandler.getDisplayedProject(),
         };
