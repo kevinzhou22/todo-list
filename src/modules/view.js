@@ -321,7 +321,9 @@ const modalWindowHandler = (function() {
         const important = importantSelect.options[importantSelect.selectedIndex].text;
         description = descriptionTextArea.textContent;
 
+
         const eventData = {
+            id: +modalWindow.getAttribute("data-task-id"),
             title,
             dueDate,
             important: important.text === "Yes",
