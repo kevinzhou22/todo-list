@@ -63,12 +63,12 @@ const todoItemFactory = function(title, options = {}) {
     // returns an object with all the properties of the to-do item
     const getProperties = function() {
         return ({
-            title,
-            description,
-            important,
-            completed,
-            dueDate,
-        } = _todoItemProperties)
+            title: _todoItemProperties.title,
+            description: _todoItemProperties.description,
+            important: _todoItemProperties.important,
+            completed: _todoItemProperties.completed,
+            dueDate: _todoItemProperties.dueDate,
+        })
     };
     
     /* sets the properties specified in the propertiesToUpdate argument,
