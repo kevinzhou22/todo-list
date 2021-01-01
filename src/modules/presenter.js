@@ -52,11 +52,18 @@ const _onItemUpdatedFromModel = function(eventData) {
     }
 };
 
+const _onItemRemovedFromModel = function(eventData) {
+    const taskID = eventData.id;
+    const projectID = eventData.projectID;
+    view.tasksPaneHandler.removeTask(taskID);
+};
+
 
 // set up events.on for model
 events.on(model.eventsEmitted.ITEM_ADDED, _onItemAddedFromModel);
 events.on(model.eventsEmitted.PROJECT_ADDED, _onProjectAddedFromModel);
 events.on(model.eventsEmitted.ITEM_UPDATED, _onItemUpdatedFromModel);
+events.on(model.eventsEmitted.ITEM_REMOVED, _onItemRemovedFromModel);
 
 // functions for attaching to events from the view
 
@@ -124,11 +131,20 @@ const _onUserRequestsToEditTask = function(eventData) {
 };
 
 
+const _onUserRemovesTask = function(eventData) {
+    const taskID = eventData.taskID;
+    const projectID = eventData.projectID;
+
+    model.removeTodoItem(projectID,taskID);
+};
+
+
 // set up events.on for view
 events.on(view.eventsEmitted.USER_ADDS_TASK, _onUserAddsTaskFromView);
 events.on(view.eventsEmitted.USER_REQUESTS_TASK_DETAILS, _onUserRequestsTaskDetailsFromView);
 events.on(view.eventsEmitted.USER_UPDATES_TASK, _onUserUpdatesTasks);
 events.on(view.eventsEmitted.USER_REQUESTS_TO_EDIT_TASK, _onUserRequestsToEditTask);
+events.on(view.eventsEmitted.USER_REMOVES_TASK,_onUserRemovesTask);
 
 const initialization = (function() {
     model.addProject("Project 1");

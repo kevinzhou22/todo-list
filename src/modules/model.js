@@ -131,7 +131,11 @@ const projectFactory = function(title, todoItems = []) {
             }
         }
         if(removedTodoItemID !== null) {
-            events.emit(eventsEmitted.REMOVED_ITEM, removedTodoItemID);
+            const eventData = {
+                id: removedTodoItemID,
+                projectID: getID(),
+            };
+            events.emit(eventsEmitted.ITEM_REMOVED, eventData);
         }
     };
 
