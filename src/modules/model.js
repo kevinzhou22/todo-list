@@ -184,6 +184,15 @@ const projectFactory = function(title, todoItems = []) {
         }
     };
 
+    // returns an array of objects with properties of each task item
+    const getAllTodoItemProperties = function() {
+        let taskProperties = [];
+        _currentTodoItems.forEach((value) => {
+            taskProperties.push(value.getProperties());
+        });
+        return taskProperties;
+    }
+
     return {
         getTitle,
         setTitle,
@@ -192,7 +201,8 @@ const projectFactory = function(title, todoItems = []) {
         updateTodo,
         getID,
         doesIDExist,
-        getTodoItemProperties
+        getTodoItemProperties,
+        getAllTodoItemProperties
     }
 
 };
@@ -277,6 +287,13 @@ const projectsList = (function() {
         if (properties !== null) return properties;
     };
 
+    // returns an array of objects--the properties of tasks associated with a specific project ID
+    const getAllTodoItemPropertiesOfProject = function(projectID) {
+        const index = _getProjectIndexWithID(projectID);
+        return _currentProjects[index].getAllTodoItemProperties();
+
+    };
+
     return {
         addProject,
         removeProject,
@@ -285,12 +302,14 @@ const projectsList = (function() {
         removeTodoItem,
         updateTodoItem,
         getTodoItemProperties,
+        getAllTodoItemPropertiesOfProject,
     }
 })();
 
 export let addProject = projectsList.addProject, removeProject = projectsList.removeProject,
         changeProjectTitle = projectsList.changeProjectTitle, addTodoItem = projectsList.addTodoItem,
         removeTodoItem = projectsList.removeTodoItem, updateTodoItem = projectsList.updateTodoItem,
-        getTodoItemProperties = projectsList.getTodoItemProperties;
+        getTodoItemProperties = projectsList.getTodoItemProperties, 
+        getAllTodoItemPropertiesOfProject = projectsList.getAllTodoItemPropertiesOfProject;
 
 export {eventsEmitted};

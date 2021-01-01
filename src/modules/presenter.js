@@ -142,6 +142,23 @@ const _onUserAddsProjectFromView = function(eventData) {
     model.addProject(title);
 };
 
+const _onUserChangesProjectDisplayed = function(eventData) {
+    const projectID = eventData.projectID;
+    view.projectsPaneHandler.switchActiveProject(projectID);
+    view.tasksPaneHandler.clearAllTasks();
+    const taskProperties = model.getAllTodoItemPropertiesOfProject(projectID);
+
+    taskProperties.forEach((properties) => {
+        const id = properties.id;
+        const title = properties.title;
+        const important = properties.important;
+        const completed = properties.completed;
+        const dueDate = properties.dueDate;
+        const dateString = dueDate === null ? null : "Due:" + _formatDate(dueDate);
+        view.tasksPaneHandler.addTask(id, title, dateString,important, completed);
+    });
+};
+
 
 // set up events.on for view
 events.on(view.eventsEmitted.USER_ADDS_TASK, _onUserAddsTaskFromView);
@@ -150,6 +167,8 @@ events.on(view.eventsEmitted.USER_UPDATES_TASK, _onUserUpdatesTasksFromView);
 events.on(view.eventsEmitted.USER_REQUESTS_TO_EDIT_TASK, _onUserRequestsToEditTask);
 events.on(view.eventsEmitted.USER_REMOVES_TASK,_onUserRemovesTaskFromView);
 events.on(view.eventsEmitted.USER_ADDS_PROJECT, _onUserAddsProjectFromView);
+events.on(view.eventsEmitted.USER_CHANGES_PROJECT_DISPLAYED,_onUserChangesProjectDisplayed);
+
 
 const initialization = (function() {
     model.addProject("Project 1");

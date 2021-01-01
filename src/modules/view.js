@@ -44,7 +44,7 @@ const projectsPaneHandler = (function () {
 
     // callback function that emits an event when the user clicks a project
     const _onClickOfProject = function (e) {
-        events.emit(eventsEmitted.USER_CHANGES_PROJECT_DISPLAYED, e.target.getAttribute("data-project-id"));
+        events.emit(eventsEmitted.USER_CHANGES_PROJECT_DISPLAYED, {projectID: e.target.getAttribute("data-project-id")});
     }
 
     // adds event listeners to the provided project div
@@ -70,7 +70,7 @@ const projectsPaneHandler = (function () {
 
     const switchActiveProject = function (id) {
         const currentActiveProject = _projectsContainer.querySelector(".selected-project");
-        if (currentActiveProject !== null) classList.remove("selected-project");
+        if (currentActiveProject !== null) currentActiveProject.classList.remove("selected-project");
         const newActiveProject = _projectsContainer.querySelector(`[data-project-id='${id}']`);
         newActiveProject.classList.add("selected-project");
     }
