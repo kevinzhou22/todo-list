@@ -201,7 +201,7 @@ const projectsList = (function() {
 
     const _getProjectIndexWithID = function(projectID) {
         for(let i = 0; i < _currentProjects.length; i++) {
-            if(_currentProjects[i].getID() === projectID) {
+            if(_currentProjects[i].getID() === +projectID) {
                 return i;
             }
         }
