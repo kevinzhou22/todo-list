@@ -15,7 +15,7 @@ const _onItemAddedFromModel = function(eventData) {
     const taskID = eventData.todoItemProperties.id;
 
     const dateLocaleStringOptions = {weekday: "short", year: "numeric" , month: "long", day: "numeric" };
-    const dateString = dueDate === null ? null : dueDate.toLocaleDateString("en-US", dateLocaleStringOptions);
+    const dateString = dueDate === null ? null : "Due " + dueDate.toLocaleDateString("en-US", dateLocaleStringOptions);
 
     view.tasksPaneHandler.addTask(taskID,title,dueDate,important,completed);
 };
