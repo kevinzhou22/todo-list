@@ -275,7 +275,7 @@ const detailsPaneHandler = (function() {
 
     // makes the details pane visible on the UI
     const appear = function() {
-        _detailsPane.style.visibility = "visible";
+        _detailsPane.style.display = "block";
     }
 
     // makes the details pane hidden on the UI
