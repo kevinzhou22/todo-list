@@ -401,8 +401,6 @@ const modalWindowHandler = (function () {
             description,
         };
 
-        console.log("SUBMIT EVENT", eventData)
-
         events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
 
         disappear();
