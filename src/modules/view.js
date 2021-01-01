@@ -75,7 +75,7 @@ const projectsPaneHandler = (function () {
     }
 
     const getDisplayedProject = function() {
-        return _projectsContainer.querySelector(".selected-project").getAttribute("data-project-id");
+        return +_projectsContainer.querySelector(".selected-project").getAttribute("data-project-id");
     };
 
     return {
