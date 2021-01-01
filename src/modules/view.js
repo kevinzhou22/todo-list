@@ -195,11 +195,14 @@ const tasksPaneHandler = (function () {
         taskTitle.textContent = title;
         taskSummary.appendChild(taskTitle);
 
-        const dueDateP = document.createElement("p");
-        dueDateP.classList.add("due-date");
-        dueDateP.textContent = dueDateToBeDisplayed;
-        taskSummary.appendChild(dueDateP);
-
+        if (dueDateToBeDisplayed !== null) {
+            const dueDateP = document.createElement("p");
+            dueDateP.classList.add("due-date");
+            dueDateP.textContent = dueDateToBeDisplayed;
+            taskSummary.appendChild(dueDateP);
+    
+        } 
+       
         const importantRatingDiv = document.createElement("div");
         importantRatingDiv.classList.add("important-rating");
         taskContent.appendChild(importantRatingDiv);
