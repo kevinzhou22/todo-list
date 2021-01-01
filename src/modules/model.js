@@ -75,6 +75,7 @@ const todoItemFactory = function(title, options = {}) {
     const updateProperties = function(propertiesToUpdate = {}) {
         for (let key in propertiesToUpdate) {
             if(!_isPropertyInExistence(key)) continue;
+            console.log("UPDATED VALUE: " + propertiesToUpdate[key]);
             _todoItemProperties[key] = propertiesToUpdate[key];
             
         }
@@ -140,7 +141,7 @@ const projectFactory = function(title, todoItems = []) {
         for(let i = 0; i < _currentTodoItems.length; i++) {
             if(_currentTodoItems[i].getID() === ID) {
                 _currentTodoItems[i].updateProperties(options);
-                currentProperties = _currentTodoItems.getProperties();
+                currentProperties = _currentTodoItems[i].getProperties();
             }
         }
         if (currentProperties !== null) {
@@ -148,6 +149,7 @@ const projectFactory = function(title, todoItems = []) {
                 projectID: _projectID,
                 currentProperties,
             };
+            console.log("UPDATE EVENT DATA", eventData);
             events.emit(eventsEmitted.ITEM_UPDATED, eventData);
         }
     };
@@ -198,6 +200,8 @@ const projectsList = (function() {
 
     const _getProjectIndexWithID = function(projectID) {
         for(let i = 0; i < _currentProjects.length; i++) {
+            console.log("currentProjectID: " + _currentProjects[i].getID() )
+            console.log("attemtped match: " + projectID);
             if(_currentProjects[i].getID() === +projectID) {
                 return i;
             }
@@ -253,6 +257,7 @@ const projectsList = (function() {
 
     const updateTodoItem = function(projectID, todoItemID, options = {}) {
         const index = _getProjectIndexWithID(projectID);
+        console.log("OPTIONS" , options);
         if (index !== null) {
             _currentProjects[index].updateTodo(todoItemID, options);
         }
@@ -261,6 +266,7 @@ const projectsList = (function() {
     const getTodoItemProperties = function(projectID, todoItemID) {
         const projectIndex = _getProjectIndexWithID(projectID);
         let properties = null;
+        console.log("ARGUMENT ID: " + projectID);
         if (projectIndex !== null) {
             properties = _currentProjects[projectIndex].getTodoItemProperties(todoItemID);
         }

@@ -256,7 +256,7 @@ const tasksPaneHandler = (function () {
             }
             dueDateDisplayed.textContent = dueDateString;
         } else {
-            const dueDateP = document.querySelector(".due-date");
+            const dueDateP = task.querySelector(".due-date");
             if (dueDateP !== null) {
                 dueDateP.remove();
             }
@@ -388,7 +388,8 @@ const modalWindowHandler = (function () {
         const title = titleTextBox.value;
         const dueDate = dueDateDateBox.value;
         const important = importantSelect.options[importantSelect.selectedIndex].text;
-        const description = descriptionTextArea.textContent;
+        const description = descriptionTextArea.value;
+
 
         const associatedTask = getAssociatedTask();
         const eventData = {
@@ -396,9 +397,12 @@ const modalWindowHandler = (function () {
             projectID: associatedTask.projectID,
             title,
             dueDate,
-            important: important.text === "Yes",
+            important: important === "Yes",
             description,
         };
+
+        console.log("SUBMIT EVENT", eventData)
+
         events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
 
         disappear();
@@ -420,7 +424,9 @@ const modalWindowHandler = (function () {
     // sets the fields in the modal window. dueDate is a string in the format YYYY-MM-DD
     const setFields = function (title, dueDate, important, description) {
         titleTextBox.value = title;
-        if (dueDate !== null) dueDateDateBox.value = dueDate;
+        if (dueDate !== null) {
+            dueDateDateBox.value = dueDate;
+        }
         importantSelect.selectedIndex = important ? 1 : 0;
         descriptionTextArea.textContent = description;
     };
