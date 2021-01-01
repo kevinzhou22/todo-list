@@ -261,7 +261,7 @@ const detailsPaneHandler = (function() {
         const currentTask = getCurrentActiveTask();
         _detailsPane.removeAttribute("data-task-id");
         disappear();
-        eventData = {
+        const eventData = {
             taskID: +currentTask,
             projectID: +projectsPaneHandler.getDisplayedProject(),
         }
