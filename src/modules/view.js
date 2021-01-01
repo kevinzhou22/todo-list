@@ -328,7 +328,8 @@ const modalWindowHandler = (function() {
 
 
         const eventData = {
-            id: +modalWindow.getAttribute("data-task-id"),
+            taskID: +modalWindow.getAttribute("data-task-id"),
+            projectID: +modalWindow.getAttribute("data-project-id"),
             title,
             dueDate,
             important: important.text === "Yes",
