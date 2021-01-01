@@ -27,9 +27,8 @@ header {
     font-family: sans-serif;
 }
 .main-content {
-    display: grid;
-    grid-template-columns: 20% 1fr 20%; 
-    grid-template-rows: 1fr;
+    display: flex;
+
     height: calc(100vh - 7rem);
     justify-items: stretch;
     align-items: stretch;
@@ -38,14 +37,17 @@ header {
 
 .projects-pane {
     background-color: var(--granite-gray);
+    width: 20%;
 }
 
 .tasks-pane {
     background-color: var(--white);
+    flex-grow: 1;
 }
 
 .details-pane {
     background-color: var(--web-gray-2);
+    width: 20%;
 }
 /* Header Formatting */
 

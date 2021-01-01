@@ -254,7 +254,7 @@ const detailsPaneHandler = (function() {
     // callback function for handling clicks on the settings button,
     // making the edit panel for the pane visible
     const _onClickOfSettingsButton = function() {
-        modal.style.visibility = "visible";
+        modal.style.display = "block";
     }
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function() {
@@ -280,7 +280,7 @@ const detailsPaneHandler = (function() {
 
     // makes the details pane hidden on the UI
     const disappear = function () {
-        _detailsPane.style.visibility = "hidden";
+        _detailsPane.style.display = "none";
     }
 
     // sets the individual fields of the details pane
