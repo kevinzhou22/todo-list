@@ -127,6 +127,7 @@ header h1 {
     background-color: var(--granite-gray);
     color: white;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 .projects-pane .project-adder .new-project-textbox::placeholder {
