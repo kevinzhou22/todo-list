@@ -42,7 +42,6 @@ todoItem.
 
 current optional properties: description, important, dueDate (a Date object) */
 const todoItemFactory = function(title, options = {}) {
-    
     const _todoItemProperties = {
         id: todoItemIDGenerator.generate(),   
         title,
@@ -51,7 +50,6 @@ const todoItemFactory = function(title, options = {}) {
         completed: "completed" in options ? options.completed : false,
         dueDate: "dueDate" in options ? new Date(options.date.valueOf()) : null, // need to copy value of date
     };
-
     // take a String argument and tests if that property exists on the to-do item
     const _isPropertyInExistence = function(property) {
         if (property in _todoItemProperties) {
@@ -113,12 +111,12 @@ const projectFactory = function(title, todoItems = []) {
     const addTodo = function(title, options = {}) {
         const newTodo = todoItemFactory(title, options);
         _currentTodoItems.push(newTodo);
-
         const eventData = {
             projectID: _projectID,
-            todoProperties: newTodo.getProperties(),
+            todoItemProperties: newTodo.getProperties(),
         };
-
+        console.log("emttign event");
+        console.log(eventData);
         events.emit(eventsEmitted.ITEM_ADDED, eventData);
     };
 
@@ -240,8 +238,11 @@ const projectsList = (function() {
     };
 
     const addTodoItem = function(projectID, title, options = {}) {
+        console.log("title: " +title);
+        console.log("Project ID: " + projectID);
         const projectIndex = _getProjectIndexWithID(projectID);
         if (projectIndex !== null) {
+            console.log("PROJECT INDEX: " + projectIndex);
             _currentProjects[projectIndex].addTodo(title, options);
         }
     };
