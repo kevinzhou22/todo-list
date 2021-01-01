@@ -279,30 +279,30 @@ const detailsPaneHandler = (function() {
     const dueDateParagraph = _detailsPane.querySelector(".detail-due-date p");
     const descriptionParagraph = _detailsPane.querySelector(".detail-description");
 
-        // sets the data-task-id and data-project-id attributes 
-        const setAssociatedTask = function(projectID, taskID) {
-            _detailsPane.setAttribute("data-task-id", taskID);
-            _detailsPane.setAttribute("data-project-id", projectID);
-        };
-    
-        // gets the data-task-id and data-project-id attributes 
-        const getAssociatedTask = function() {
-            const taskID = _detailsPane.getAttribute("data-task-id", taskID);
-            const projectID = _detailsPane.getAttribute("data-project-id", projectID);
-    
-            return {
-                taskID,
-                projectID,
-            }
+    // sets the data-task-id and data-project-id attributes 
+    const setAssociatedTask = function (projectID, taskID) {
+        _detailsPane.setAttribute("data-task-id", taskID);
+        _detailsPane.setAttribute("data-project-id", projectID);
+    };
+
+    // gets the data-task-id and data-project-id attributes 
+    const getAssociatedTask = function () {
+        const taskID = _detailsPane.getAttribute("data-task-id");
+        const projectID = _detailsPane.getAttribute("data-project-id");
+
+        return {
+            taskID,
+            projectID,
         }
+    }
 
     // callback function for handling clicks on the settings button,
     // making the edit panel for the pane visible
-    const _onClickOfSettingsButton = function() {
+    const _onClickOfSettingsButton = function () {
         modalWindowHandler.appear();
     }
     // callback function for handling clicks on the delete button, removing the task
-    const _onClickOfDeleteButton = function() {
+    const _onClickOfDeleteButton = function () {
         const associatedTask = getAssociatedTask();
         _detailsPane.removeAttribute("data-task-id");
         disappear();
@@ -358,15 +358,15 @@ const modalWindowHandler = (function() {
     const importantSelect = modalContent.querySelector("#important-field");
     const descriptionTextArea = modalContent.querySelector("#description-field");
 
-    const setAssociatedTask = function(projectID, taskID) {
+    const setAssociatedTask = function (projectID, taskID) {
         modalWindow.setAttribute("data-task-id", taskID);
         modalWindow.setAttribute("data-project-id", projectID);
     };
 
     // gets the data-task-id and data-project-id attributes 
-    const getAssociatedTask = function() {
-        const taskID = modalWindow.getAttribute("data-task-id", taskID);
-        const projectID = modalWindow.getAttribute("data-project-id", projectID);
+    const getAssociatedTask = function () {
+        const taskID = +modalWindow.getAttribute("data-task-id");
+        const projectID = +modalWindow.getAttribute("data-project-id");
 
         return {
             taskID,
