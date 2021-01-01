@@ -251,6 +251,23 @@ const detailsPaneHandler = (function() {
     const dueDateParagraph = _detailsPane.querySelector(".detail-due-date p");
     const descriptionParagraph = _detailsPane.querySelector(".detail-description");
 
+        // sets the data-task-id and data-project-id attributes 
+        const setAssociatedTask = function(projectID, taskID) {
+            _detailsPane.setAttribute("data-task-id", taskID);
+            _detailsPane.setAttribute("data-project-id". projectID);
+        };
+    
+        // gets the data-task-id and data-project-id attributes 
+        const getAssociatedTask = function(projectID, taskID) {
+            const taskID = _detailsPane.getAttribute("data-task-id", taskID);
+            const projectID = _detailsPane.getAttribute("data-project-id", projectID);
+    
+            return {
+                taskID,
+                projectID,
+            }
+        }
+
     // callback function for handling clicks on the settings button,
     // making the edit panel for the pane visible
     const _onClickOfSettingsButton = function() {
@@ -258,13 +275,14 @@ const detailsPaneHandler = (function() {
     }
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function() {
-        const currentTask = getCurrentActiveTask();
+        const associatedTask = getAssociatedTask();
         _detailsPane.removeAttribute("data-task-id");
         disappear();
+
         const eventData = {
-            taskID: +currentTask,
-            projectID: +projectsPaneHandler.getDisplayedProject(),
-        }
+            taskID: associatedTask.taskID,
+            projectID: associatedTask.projectID,
+        };
         events.emit(eventsEmitted.USER_REMOVES_TASK, eventData);
     }
 
@@ -291,31 +309,12 @@ const detailsPaneHandler = (function() {
         descriptionParagraph.textContent = description;
     };
 
-    // sets the data-task-id and data-project-id attributes on the modal window
-    const setAssociatedTask = function(projectID, taskID) {
-        _detailsPane.setAttribute("data-task-id", taskID);
-        _detailsPane.setAttribute("data-project-id". projectID);
-    };
 
-    // gets the data-task-id and data-project-id attributes on the modal window
-    const getAssociatedTask = function(projectID, taskID) {
-        const taskID = _detailsPane.getAttribute("data-task-id", taskID);
-        const projectID = _detailsPane.getAttribute("data-project-id", projectID);
 
-        return {
-            taskID,
-            projectID,
-        }
-    }
-
-    const getCurrentActiveTask = function() {
-        return +_detailsPane.getAttribute("data-task-id");
-    };
     return {
         appear,
         disappear,
         setFields,
-        getCurrentActiveTask,
         setAssociatedTask,
         getAssociatedTask,
     };
@@ -331,6 +330,22 @@ const modalWindowHandler = (function() {
     const importantSelect = modalContent.querySelector("#important-field");
     const descriptionTextArea = modalContent.querySelector("#description-field");
 
+    const setAssociatedTask = function(projectID, taskID) {
+        modalWindow.setAttribute("data-task-id", taskID);
+        modalWindow.setAttribute("data-project-id". projectID);
+    };
+
+    // gets the data-task-id and data-project-id attributes 
+    const getAssociatedTask = function(projectID, taskID) {
+        const taskID = modalWindow.getAttribute("data-task-id", taskID);
+        const projectID = modalWindow.getAttribute("data-project-id", projectID);
+
+        return {
+            taskID,
+            projectID,
+        }
+    }
+
     const _resetContent = function() {
         titleTextBox.value = "";
         dueDateDateBox.value = "";
@@ -345,10 +360,10 @@ const modalWindowHandler = (function() {
         const important = importantSelect.options[importantSelect.selectedIndex].text;
         description = descriptionTextArea.textContent;
 
-
+        const associatedTask = getAssociatedTask();
         const eventData = {
-            taskID: +modalWindow.getAttribute("data-task-id"),
-            projectID: +modalWindow.getAttribute("data-project-id"),
+            taskID: associatedTask.taskID,
+            projectID: associatedTask.projectID,
             title,
             dueDate,
             important: important.text === "Yes",
@@ -387,10 +402,14 @@ const modalWindowHandler = (function() {
     const disappear = function() {
         modalWindow.style.visibility = "hidden";
     };
+
+
     return {
         setFields,
         appear,
         disappear,
+        setAssociatedTask,
+        getAssociatedTask
     };
 })();
 
