@@ -127,7 +127,7 @@ const tasksPaneHandler = (function () {
     const _onClickOfImportantCheckbox = function (e) {
         const newValue = e.target.checked;
         const eventData = {
-            taskID: +e.target.closest("task").getAttribute("data-task-id"),
+            taskID: +e.target.closest(".task").getAttribute("data-task-id"),
             important: newValue,
             projectID: +projectsPaneHandler.getDisplayedProject(),
         };
