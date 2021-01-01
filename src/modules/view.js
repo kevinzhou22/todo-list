@@ -100,7 +100,7 @@ const tasksPaneHandler = (function () {
             
             const eventData = {
                 title,
-                projectID: projectsPaneHandler.getDisplayedProject(),
+                projectID: +projectsPaneHandler.getDisplayedProject(),
             }
             events.emit(eventsEmitted.USER_ADDS_TASK, eventData);
         }
@@ -113,8 +113,8 @@ const tasksPaneHandler = (function () {
             return;
         }
         const eventData = {
-            taskID: e.currentTarget.getAttribute("data-task-id"),
-            projectID: projectsPaneHandler.getDisplayedProject(),
+            taskID: +e.currentTarget.getAttribute("data-task-id"),
+            projectID: +projectsPaneHandler.getDisplayedProject(),
         };
         events.emit(eventsEmitted.USER_REQUESTS_TASK_DETAILS, eventData);
     };
@@ -127,9 +127,9 @@ const tasksPaneHandler = (function () {
     const _onClickOfImportantCheckbox = function (e) {
         const newValue = e.target.checked;
         const eventData = {
-            taskID: e.target.closest("task").getAttribute("data-task-id"),
+            taskID: +e.target.closest("task").getAttribute("data-task-id"),
             important: newValue,
-            projectID: projectsPaneHandler.getDisplayedProject(),
+            projectID: +projectsPaneHandler.getDisplayedProject(),
         };
         events.emit(eventsEmitted.USER_UPDATES_TASK, { eventData});
     };
@@ -138,9 +138,9 @@ const tasksPaneHandler = (function () {
     const _onClickOfCompletedCheckbox = function (e) {
         const newValue = e.target.checked;
         const eventData = {
-            taskID: e.target.closest("task").getAttribute("data-task-id"),
+            taskID: +e.target.closest("task").getAttribute("data-task-id"),
             completed: newValue,
-            projectID: projectsPaneHandler.getDisplayedProject(),
+            projectID: +projectsPaneHandler.getDisplayedProject(),
         };
         events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
     };
@@ -262,8 +262,8 @@ const detailsPaneHandler = (function() {
         _detailsPane.removeAttribute("data-task-id");
         disappear();
         eventData = {
-            taskID: currentTask,
-            projectID: projectsPaneHandler.getDisplayedProject(),
+            taskID: +currentTask,
+            projectID: +projectsPaneHandler.getDisplayedProject(),
         }
         events.emit(eventsEmitted.USER_REMOVES_TASK, eventData);
     }
