@@ -44,8 +44,26 @@ const _onUserAddsTaskFromView = function(eventData) {
     model.addTodoItem(eventData.projectID, eventData.title);
 };
 
-events.on(view.eventsEmitted.USER_ADDS_TASK, _onUserAddsTaskFromView);
+// handles display of the details panel upon user request for details for a task
+const _onUserRequestsTaskDetailsFromView = function (eventData) {
+    const taskID = eventData.taskID;
+    const projectID = eventData.projectID;
+    const properties = model.getTodoItemProperties(projectID, taskID);
 
+    const titleDisplayed = properties.title;
+    const dueDateDisplayed = properties.dueDate === null ? "No Due Date" : _formatDate(properties.dueDate);
+    const importantDisplayed = properties.important ? "Important" : "Not Important";
+    const descriptionDisplayed = properties.description;
+
+    view.detailsPaneHandler.setFields(titleDisplayed,importantDisplayed,dueDateDisplayed,descriptionDisplayed)
+    view.detailsPaneHandler.setAssociatedTask(projectID, taskID);
+
+    view.detailsPaneHandler.appear();
+};
+
+// set up events.on for view
+events.on(view.eventsEmitted.USER_ADDS_TASK, _onUserAddsTaskFromView);
+events.on(view.eventsEmitted.USER_REQUESTS_TASK_DETAILS, _onUserRequestsTaskDetailsFromView);
 
 const initialization = (function() {
     model.addProject("Project 1");
