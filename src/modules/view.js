@@ -254,11 +254,11 @@ const detailsPaneHandler = (function() {
         // sets the data-task-id and data-project-id attributes 
         const setAssociatedTask = function(projectID, taskID) {
             _detailsPane.setAttribute("data-task-id", taskID);
-            _detailsPane.setAttribute("data-project-id". projectID);
+            _detailsPane.setAttribute("data-project-id", projectID);
         };
     
         // gets the data-task-id and data-project-id attributes 
-        const getAssociatedTask = function(projectID, taskID) {
+        const getAssociatedTask = function() {
             const taskID = _detailsPane.getAttribute("data-task-id", taskID);
             const projectID = _detailsPane.getAttribute("data-project-id", projectID);
     
@@ -332,11 +332,11 @@ const modalWindowHandler = (function() {
 
     const setAssociatedTask = function(projectID, taskID) {
         modalWindow.setAttribute("data-task-id", taskID);
-        modalWindow.setAttribute("data-project-id". projectID);
+        modalWindow.setAttribute("data-project-id", projectID);
     };
 
     // gets the data-task-id and data-project-id attributes 
-    const getAssociatedTask = function(projectID, taskID) {
+    const getAssociatedTask = function() {
         const taskID = modalWindow.getAttribute("data-task-id", taskID);
         const projectID = modalWindow.getAttribute("data-project-id", projectID);
 
