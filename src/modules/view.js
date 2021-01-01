@@ -112,7 +112,7 @@ const tasksPaneHandler = (function () {
         if(targetTag === "input") {
             return;
         }
-        eventData = {
+        const eventData = {
             taskID: e.currentTarget.getAttribute("data-task-id"),
             projectID: projectsPaneHandler.getDisplayedProject(),
         };
