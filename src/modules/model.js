@@ -266,7 +266,7 @@ const projectsList = (function() {
         const projectIndex = _getProjectIndexWithID(projectID);
         let properties = null;
         if (projectIndex !== null) {
-            properties = _currentProjects[projectIndex].getProperties(todoItemID);
+            properties = _currentProjects[projectIndex].getTodoItemProperties(todoItemID);
         }
         if (properties !== null) return properties;
     };
