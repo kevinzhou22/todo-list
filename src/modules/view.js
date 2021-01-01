@@ -286,7 +286,7 @@ const detailsPaneHandler = (function() {
     // sets the individual fields of the details pane
     const setFields = function(title, important, dueDate, description) {
         titleParagraph.textContent = title;
-        importantParagraph.textContent = important ? "Important" : "Not Important";
+        importantParagraph.textContent = important;
         dueDateParagraph.textContent = dueDate;
         descriptionParagraph.textContent = description;
     };
