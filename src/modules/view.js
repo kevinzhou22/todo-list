@@ -291,6 +291,23 @@ const detailsPaneHandler = (function() {
         descriptionParagraph.textContent = description;
     };
 
+    // sets the data-task-id and data-project-id attributes on the modal window
+    const setAssociatedTask = function(projectID, taskID) {
+        _detailsPane.setAttribute("data-task-id", taskID);
+        _detailsPane.setAttribute("data-project-id". projectID);
+    };
+
+    // gets the data-task-id and data-project-id attributes on the modal window
+    const getAssociatedTask = function(projectID, taskID) {
+        const taskID = _detailsPane.getAttribute("data-task-id", taskID);
+        const projectID = _detailsPane.getAttribute("data-project-id", projectID);
+
+        return {
+            taskID,
+            projectID,
+        }
+    }
+
     const getCurrentActiveTask = function() {
         return +_detailsPane.getAttribute("data-task-id");
     };
@@ -299,6 +316,8 @@ const detailsPaneHandler = (function() {
         disappear,
         setFields,
         getCurrentActiveTask,
+        setAssociatedTask,
+        getAssociatedTask,
     };
 })();
 
