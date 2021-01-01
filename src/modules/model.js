@@ -61,6 +61,7 @@ const todoItemFactory = function(title, options = {}) {
     // returns an object with all the properties of the to-do item
     const getProperties = function() {
         return ({
+            id: _todoItemProperties.id,
             title: _todoItemProperties.title,
             description: _todoItemProperties.description,
             important: _todoItemProperties.important,
