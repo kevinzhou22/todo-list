@@ -2,6 +2,13 @@ import * as model from "./model.js";
 import * as view from "./view.js";
 import * as events from "./events.js";
 
+
+// changes a date to string from
+const _formatDate = function(date) {
+    const dateLocaleStringOptions = {weekday: "short", year: "numeric" , month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", dateLocaleStringOptions)
+};
+
 // functions for attaching to events from the model
 
 // adds a new task to the tasks panel on the UI if the relevant project is currently displayed
@@ -14,10 +21,9 @@ const _onItemAddedFromModel = function(eventData) {
     const completed = eventData.todoItemProperties.completed;
     const taskID = eventData.todoItemProperties.id;
 
-    const dateLocaleStringOptions = {weekday: "short", year: "numeric" , month: "long", day: "numeric" };
-    const dateString = dueDate === null ? null : "Due " + dueDate.toLocaleDateString("en-US", dateLocaleStringOptions);
+    const dateString = dueDate === null ? null : "Due " + _formatDate(dueDate);
 
-    view.tasksPaneHandler.addTask(taskID,title,dueDate,important,completed);
+    view.tasksPaneHandler.addTask(taskID,title,dateString,important,completed);
 };
 
 // adds a new project to the projects panel on the UI
