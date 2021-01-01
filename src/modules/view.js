@@ -200,7 +200,6 @@ const tasksPaneHandler = (function () {
             dueDateP.classList.add("due-date");
             dueDateP.textContent = dueDateToBeDisplayed;
             taskSummary.appendChild(dueDateP);
-    
         } 
        
         const importantRatingDiv = document.createElement("div");
@@ -235,10 +234,39 @@ const tasksPaneHandler = (function () {
         });
     };
 
+    const updateTaskDetails = function(id, title, dueDateString, completed, important ) {
+        const task = _tasksContainer.querySelector(`.task[data-task-id='${id}']`);
+
+        const taskCompletedCheckbox = task.querySelector(".task-checkbox-container input");
+        taskCompletedCheckbox.selected = completed;
+
+        const taskImportantCheckbox = task.querySelector(".task-important");
+        taskImportantCheckbox.selected = important;
+
+        const taskTitle = task.querySelector(".task-title");
+        taskTitle.textContent = title;
+
+        if (dueDateString !== null) {
+            let dueDateDisplayed = task.querySelector(".due-date");
+            if (dueDateDisplayed === null) {
+                dueDateDisplayed = document.createElement("p");
+                dueDateDisplayed.classList.add("due-date");
+                task.querySelector(".task-summary").appendChild(dueDateDisplayed);
+            } 
+            dueDateDisplayed.textContent = dueDateString;
+        } else {
+            const dueDateP = document.querySelector(".due-date");
+            if (dueDateP !== null) {
+                dueDateP.remove();
+            }
+        }
+    };
+
     return {
         addTask,
         removeTask,
         clearAllTasks,
+        updateTaskDetails,
     }
 })();
 
