@@ -301,7 +301,7 @@ const detailsPaneHandler = (function () {
     // making the edit panel for the pane visible
     const _onClickOfSettingsButton = function () {
         const eventData = getAssociatedTask();
-        events.emit(emittedEvents.USER_REQUESTS_TO_EDIT_TASK,eventData);
+        events.emit(eventsEmitted.USER_REQUESTS_TO_EDIT_TASK,eventData);
      };
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function () {
