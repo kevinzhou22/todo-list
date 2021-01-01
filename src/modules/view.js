@@ -8,6 +8,7 @@ const eventsEmitted = {
     USER_REMOVES_TASK: "userRemovesTask",
     USER_UPDATES_TASK: "userUpdatesTask",
     USER_REQUESTS_TASK_DETAILS: "userRequestsTaskDetails",
+    USER_REQUESTS_TO_EDIT_TASK: "userRequestsToEditTasks",
 };
 
 // handles whether focus outlines appear depending on whether the user uses tabs or not
@@ -299,8 +300,9 @@ const detailsPaneHandler = (function () {
     // callback function for handling clicks on the settings button,
     // making the edit panel for the pane visible
     const _onClickOfSettingsButton = function () {
-        modalWindowHandler.appear();
-    }
+        const eventData = getAssociatedTask();
+        events.emit(emittedEvents.USER_REQUESTS_TO_EDIT_TASK,eventData);
+     };
     // callback function for handling clicks on the delete button, removing the task
     const _onClickOfDeleteButton = function () {
         const associatedTask = getAssociatedTask();
