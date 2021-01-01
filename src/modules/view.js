@@ -30,7 +30,7 @@ const projectsPaneHandler = (function () {
     // callback function for handling users pressing enter while using the project adder
     const _onEnterOfProjectAdder = function (e) {
         if (e.key === "Enter") {
-            const title = e.target.getAttribute("value");
+            const title = e.target.value;
             e.target.value = "";
             e.target.blur();
             events.emit(eventsEmitted.USER_ADDS_PROJECT, { title });
@@ -94,10 +94,10 @@ const tasksPaneHandler = (function () {
     // callback function for handling users pressing enter while using the task adder
     const _onEnterOfTaskAdder = function (e) {
         if (e.key === "Enter") {
-            console.log("enter");
-            const title = e.target.getAttribute("value");
+            const title = e.target.value;
             e.target.value = "";
             e.target.blur();
+            
             const eventData = {
                 title,
                 projectID: projectsPaneHandler.getDisplayedProject(),
@@ -117,7 +117,6 @@ const tasksPaneHandler = (function () {
             projectID: projectsPaneHandler.getDisplayedProject(),
         };
         events.emit(eventsEmitted.USER_REQUESTS_TASK_DETAILS, eventData);
-        console.log("works");
     };
 
     // add initial event listeners
