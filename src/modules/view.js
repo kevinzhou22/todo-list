@@ -131,7 +131,7 @@ const tasksPaneHandler = (function () {
             important: newValue,
             projectID: +projectsPaneHandler.getDisplayedProject(),
         };
-        events.emit(eventsEmitted.USER_UPDATES_TASK, { eventData});
+        events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
     };
 
     // callback function for handling users clicking the complete checkbox on tasks
