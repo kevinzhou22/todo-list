@@ -420,7 +420,7 @@ const modalWindowHandler = (function () {
     // sets the fields in the modal window. dueDate is a string in the format YYYY-MM-DD
     const setFields = function (title, dueDate, important, description) {
         titleTextBox.value = title;
-        dueDateDateBox.value = dueDate;
+        if (dueDate !== null) dueDateDateBox.value = dueDate;
         importantSelect.selectedIndex = important ? 1 : 0;
         descriptionTextArea.textContent = description;
     };
