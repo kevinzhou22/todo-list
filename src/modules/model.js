@@ -140,7 +140,7 @@ const projectFactory = function(title, todoItems = []) {
         for(let i = 0; i < _currentTodoItems.length; i++) {
             if(_currentTodoItems[i].getID() === ID) {
                 _currentTodoItems[i].updateProperties(options);
-                currentProperties = _currentTodoItems.getProperties();
+                currentProperties = _currentTodoItems[i].getProperties();
             }
         }
         if (currentProperties !== null) {
