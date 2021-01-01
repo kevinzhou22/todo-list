@@ -26,7 +26,7 @@ document.body.addEventListener("keydown", (e) => {
 const projectsPaneHandler = (function () {
     const _projectsPane = document.querySelector(".projects-pane");
     const _projectsContainer = _projectsPane.querySelector(".projects-container");
-    
+
     // callback function for handling users pressing enter while using the project adder
     const _onEnterOfProjectAdder = function (e) {
         if (e.key === "Enter") {
@@ -36,7 +36,7 @@ const projectsPaneHandler = (function () {
             events.emit(eventsEmitted.USER_ADDS_PROJECT, { title });
         }
     };
-    
+
 
     // add initial event listeners
     _projectsPane.querySelector(".new-project-textbox").addEventListener("keydown", _onEnterOfProjectAdder);
@@ -74,7 +74,7 @@ const projectsPaneHandler = (function () {
         newActiveProject.classList.add("selected-project");
     }
 
-    const getDisplayedProject = function() {
+    const getDisplayedProject = function () {
         return +_projectsContainer.querySelector(".selected-project").getAttribute("data-project-id");
     };
 
@@ -97,7 +97,7 @@ const tasksPaneHandler = (function () {
             const title = e.target.value;
             e.target.value = "";
             e.target.blur();
-            
+
             const eventData = {
                 title,
                 projectID: +projectsPaneHandler.getDisplayedProject(),
@@ -107,9 +107,9 @@ const tasksPaneHandler = (function () {
     };
 
     // callback function handling clicks on a task (but not on its input descendents)
-    const _onClickOfTask = function(e) {
+    const _onClickOfTask = function (e) {
         const targetTag = e.target.tagName.toLowerCase();
-        if(targetTag === "input") {
+        if (targetTag === "input") {
             return;
         }
         const eventData = {
@@ -147,14 +147,14 @@ const tasksPaneHandler = (function () {
 
     // adds event listeners to the provided task div
     const _addTaskEventListeners = function (task) {
-        task.addEventListener("click",_onClickOfTask);
+        task.addEventListener("click", _onClickOfTask);
         task.querySelector(".task-completed-checkbox").addEventListener("click", _onClickOfCompletedCheckbox);
         task.querySelector(".task-important").addEventListener("click", _onClickOfImportantCheckbox);
     };
 
     // removes event listeners from the provided task div
     const _removeTaskEventListeners = function (task) {
-        task.removeEventListener("click",_onClickOfTask);
+        task.removeEventListener("click", _onClickOfTask);
         task.querySelector(".task-completed-checkbox").removeEventListener("click", _onClickOfCompletedCheckbox);
         task.querySelector(".task-important").removeEventListener("click", _onClickOfImportantCheckbox);
     };
@@ -200,8 +200,8 @@ const tasksPaneHandler = (function () {
             dueDateP.classList.add("due-date");
             dueDateP.textContent = dueDateToBeDisplayed;
             taskSummary.appendChild(dueDateP);
-        } 
-       
+        }
+
         const importantRatingDiv = document.createElement("div");
         importantRatingDiv.classList.add("important-rating");
         taskContent.appendChild(importantRatingDiv);
@@ -234,7 +234,7 @@ const tasksPaneHandler = (function () {
         });
     };
 
-    const updateTaskDetails = function(id, title, dueDateString, completed, important ) {
+    const updateTaskDetails = function (id, title, dueDateString, completed, important) {
         const task = _tasksContainer.querySelector(`.task[data-task-id='${id}']`);
 
         const taskCompletedCheckbox = task.querySelector(".task-checkbox-container input");
@@ -252,7 +252,7 @@ const tasksPaneHandler = (function () {
                 dueDateDisplayed = document.createElement("p");
                 dueDateDisplayed.classList.add("due-date");
                 task.querySelector(".task-summary").appendChild(dueDateDisplayed);
-            } 
+            }
             dueDateDisplayed.textContent = dueDateString;
         } else {
             const dueDateP = document.querySelector(".due-date");
@@ -271,7 +271,7 @@ const tasksPaneHandler = (function () {
 })();
 
 // Handles setting up and managing the details pane on the UI
-const detailsPaneHandler = (function() {
+const detailsPaneHandler = (function () {
     const _detailsPane = document.querySelector(".details-pane");
     const modal = document.querySelector(".bg-modal");
     const titleParagraph = _detailsPane.querySelector(".details-pane-title");
@@ -316,11 +316,11 @@ const detailsPaneHandler = (function() {
 
     // add event handlers
 
-    _detailsPane.querySelector(".options-button").addEventListener("click",_onClickOfSettingsButton);
-    _detailsPane.querySelector(".delete-button").addEventListener("click",_onClickOfDeleteButton);
+    _detailsPane.querySelector(".options-button").addEventListener("click", _onClickOfSettingsButton);
+    _detailsPane.querySelector(".delete-button").addEventListener("click", _onClickOfDeleteButton);
 
     // makes the details pane visible on the UI
-    const appear = function() {
+    const appear = function () {
         _detailsPane.style.display = "block";
     }
 
@@ -330,7 +330,7 @@ const detailsPaneHandler = (function() {
     }
 
     // sets the individual fields of the details pane
-    const setFields = function(title, important, dueDate, description) {
+    const setFields = function (title, important, dueDate, description) {
         titleParagraph.textContent = title;
         importantParagraph.textContent = important;
         dueDateParagraph.textContent = dueDate;
@@ -349,7 +349,7 @@ const detailsPaneHandler = (function() {
 })();
 
 // handles setting up and managing the modal window that enables the user to edit a task's details
-const modalWindowHandler = (function() {
+const modalWindowHandler = (function () {
     const modalWindow = document.querySelector(".bg-modal");
     const modalContent = modalWindow.querySelector(".modal-content");
 
@@ -374,7 +374,7 @@ const modalWindowHandler = (function() {
         }
     }
 
-    const _resetContent = function() {
+    const _resetContent = function () {
         titleTextBox.value = "";
         dueDateDateBox.value = "";
         importantSelect.selectedIndex = 0;
@@ -382,11 +382,11 @@ const modalWindowHandler = (function() {
     };
 
     // callback function that handles clicks on the submit button
-    const _onClickOfSubmit = function() {
+    const _onClickOfSubmit = function () {
         const title = titleTextBox.value;
         const dueDate = dueDateDateBox.value;
         const important = importantSelect.options[importantSelect.selectedIndex].text;
-        description = descriptionTextArea.textContent;
+        const description = descriptionTextArea.textContent;
 
         const associatedTask = getAssociatedTask();
         const eventData = {
@@ -399,35 +399,35 @@ const modalWindowHandler = (function() {
         };
         events.emit(eventsEmitted.USER_UPDATES_TASK, eventData);
 
-       disappear();
+        disappear();
         _resetContent();
     };
 
     // callback function that hides the modal window upon click of the cancel or close button
-    const _onClickOfCloseOrCancel = function(e) {
+    const _onClickOfCloseOrCancel = function (e) {
         disappear();
         _resetContent();
     };
-    
+
 
     // add event listeners
-    modalWindow.querySelector(".close").addEventListener("click",_onClickOfCloseOrCancel);
-    modalWindow.querySelector(".cancel").addEventListener("click",_onClickOfCloseOrCancel);
-    modalWindow.querySelector(".submit").addEventListener("click",_onClickOfSubmit);
+    modalWindow.querySelector(".close").addEventListener("click", _onClickOfCloseOrCancel);
+    modalWindow.querySelector(".cancel").addEventListener("click", _onClickOfCloseOrCancel);
+    modalWindow.querySelector(".submit").addEventListener("click", _onClickOfSubmit);
 
     // sets the fields in the modal window. dueDate is a string in the format YYYY-MM-DD
-    const setFields = function(title, dueDate, important, description) {
+    const setFields = function (title, dueDate, important, description) {
         titleTextBox.value = title;
         dueDateDateBox.value = dueDate;
         importantSelect.selectedIndex = important ? 1 : 0;
         descriptionTextArea.textContent = description;
     };
 
-    const appear = function() {
+    const appear = function () {
         modalWindow.style.visibility = "visible";
     };
 
-    const disappear = function() {
+    const disappear = function () {
         modalWindow.style.visibility = "hidden";
     };
 
