@@ -79,10 +79,15 @@ const projectsPaneHandler = (function () {
         return +_projectsContainer.querySelector(".selected-project").getAttribute("data-project-id");
     };
 
+    const getFirstDisplayedProjectID = function() {
+        return +_projectsContainer.querySelector(".project").getAttribute("data-project-id");
+    };
+
     return {
         addProject,
         switchActiveProject,
         getDisplayedProject,
+        getFirstDisplayedProjectID,
     }
 })();
 
@@ -447,7 +452,7 @@ const modalWindowHandler = (function () {
         modalWindow.style.visibility = "hidden";
     };
 
-
+    
     return {
         setFields,
         appear,

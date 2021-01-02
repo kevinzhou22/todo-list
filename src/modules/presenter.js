@@ -68,6 +68,22 @@ events.on(model.eventsEmitted.ITEM_UPDATED, _onItemUpdatedFromModel);
 events.on(model.eventsEmitted.ITEM_REMOVED, _onItemRemovedFromModel);
 // functions for attaching to events from the view
 
+const _loadTaskPaneWithTasksFromProject = function(projectID) {
+    const taskProperties = model.getAllTodoItemPropertiesOfProject(projectID);
+
+    taskProperties.forEach((properties) => {
+        const id = properties.id;
+        const title = properties.title;
+        const important = properties.important;
+        const completed = properties.completed;
+        const dueDate = properties.dueDate;
+        const dateString = dueDate === null ? null : "Due: " + _formatDate(dueDate);
+        view.tasksPaneHandler.addTask(id, title, dateString,important, completed);
+    });
+    view.tasksPaneHandler.setAssociatedProjectID(projectID);
+}
+
+
 // handles adding the task to the model
 const _onUserAddsTaskFromView = function(eventData) {
     model.addTodoItem(eventData.projectID, eventData.title);
@@ -147,18 +163,9 @@ const _onUserChangesProjectDisplayed = function(eventData) {
     const projectID = eventData.projectID;
     view.projectsPaneHandler.switchActiveProject(projectID);
     view.tasksPaneHandler.clearAllTasks();
-    const taskProperties = model.getAllTodoItemPropertiesOfProject(projectID);
 
-    taskProperties.forEach((properties) => {
-        const id = properties.id;
-        const title = properties.title;
-        const important = properties.important;
-        const completed = properties.completed;
-        const dueDate = properties.dueDate;
-        const dateString = dueDate === null ? null : "Due: " + _formatDate(dueDate);
-        view.tasksPaneHandler.addTask(id, title, dateString,important, completed);
-    });
-    view.tasksPaneHandler.setAssociatedProjectID(projectID);
+    _loadTaskPaneWithTasksFromProject(eventData.projectID);
+
 };
 
 
@@ -173,8 +180,14 @@ events.on(view.eventsEmitted.USER_CHANGES_PROJECT_DISPLAYED,_onUserChangesProjec
 
 
 const initialization = (function() {
-    model.addProject("Project 1");
-    view.projectsPaneHandler.switchActiveProject(1);
-    view.tasksPaneHandler.setAssociatedProjectID(1);
+    if(!model.loadFromLocalStorage()) {
+        model.addProject("Project 1",null,1);
+        view.projectsPaneHandler.switchActiveProject(1);
+        view.tasksPaneHandler.setAssociatedProjectID(1);
+    } else {
+        const firstProject = view.projectsPaneHandler.getFirstDisplayedProjectID();
+        view.projectsPaneHandler.switchActiveProject(firstProject);
+        _loadTaskPaneWithTasksFromProject(firstProject);        
+    }
     view.detailsPaneHandler.disappear();
 })();
