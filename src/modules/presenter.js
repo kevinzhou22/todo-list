@@ -13,7 +13,7 @@ const _formatDate = function(date) {
 
 // adds a new task to the tasks panel on the UI if the relevant project is currently displayed
 const _onItemAddedFromModel = function(eventData) {
-    if(view.projectsPaneHandler.getDisplayedProject() !== eventData.projectID) return;
+    if(view.tasksPaneHandler.getAssociatedProjectID() !== eventData.projectID) return;
 
     const title = eventData.todoItemProperties.title;
     const dueDate = eventData.todoItemProperties.dueDate;
@@ -32,6 +32,7 @@ const _onProjectAddedFromModel = function(eventData) {
 }
 
 const _onItemUpdatedFromModel = function(eventData) {
+    if(view.tasksPaneHandler.getAssociatedProjectID() !== eventData.projectID) return;
 
     const taskID = eventData.currentProperties.id;
     const title = eventData.currentProperties.title;
@@ -52,6 +53,8 @@ const _onItemUpdatedFromModel = function(eventData) {
 };
 
 const _onItemRemovedFromModel = function(eventData) {
+    if(view.tasksPaneHandler.getAssociatedProjectID() !== eventData.projectID) return;
+
     const taskID = eventData.id;
     const projectID = eventData.projectID;
     view.tasksPaneHandler.removeTask(taskID);
@@ -155,6 +158,7 @@ const _onUserChangesProjectDisplayed = function(eventData) {
         const dateString = dueDate === null ? null : "Due: " + _formatDate(dueDate);
         view.tasksPaneHandler.addTask(id, title, dateString,important, completed);
     });
+    view.tasksPaneHandler.setAssociatedProjectID(projectID);
 };
 
 
@@ -171,5 +175,6 @@ events.on(view.eventsEmitted.USER_CHANGES_PROJECT_DISPLAYED,_onUserChangesProjec
 const initialization = (function() {
     model.addProject("Project 1");
     view.projectsPaneHandler.switchActiveProject(1);
+    view.tasksPaneHandler.setAssociatedProjectID(1);
     view.detailsPaneHandler.disappear();
 })();

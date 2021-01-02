@@ -263,11 +263,21 @@ const tasksPaneHandler = (function () {
         }
     };
 
+    const getAssociatedProjectID = function() {
+        return +_tasksPane.getAttribute("data-project-id");
+    };
+
+    const setAssociatedProjectID = function(id) {
+        _tasksPane.setAttribute("data-project-id",id);
+    };
+
     return {
         addTask,
         removeTask,
         clearAllTasks,
         updateTaskDetails,
+        getAssociatedProjectID,
+        setAssociatedProjectID,
     }
 })();
 
