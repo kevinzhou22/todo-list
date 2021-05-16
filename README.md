@@ -1,4 +1,4 @@
-# Todo List
+# To Do List
 
 Basic website built as JavaScript practice.
 
