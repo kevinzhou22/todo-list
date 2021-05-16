@@ -1,3 +1,9 @@
+# Todo List
+
+Basic website built as JavaScript practice.
+
+## Reflection
+
 This mini-project was intended to be practice for developing better OOP habits. Separation of code that handles the UI,
 code that handles user input, and code that handles the data was implemented via ES6 modules, and I tried to limit
 coupling between modules via an events module.
